@@ -10,18 +10,27 @@ print(df.values[:,1])
 df2 = pd.read_excel('data_tasks.xlsx', sheet_name = 'task2')
 print(df2)
 
-# plot 1
+# task 1 line chart
 
 x_timepoints = df.iloc[:,0]
 y_temp = df.iloc[:, 1]
 std_dev1 = df.iloc[:, 2]
 plt.errorbar(x_timepoints, y_temp, yerr = std_dev1, fmt = "rs--", linewidth =3,
-             elinewidth = 0.5, ecolor = 'k', capsize =5, capthick=1)
+             elinewidth = 0.5, ecolor = 'k', capsize =5, capthick=1, label = "Temperature (Celsius)")
 plt.xlabel("Time (Minutes)", fontweight = 'bold', fontsize = 14)
 plt.ylabel("Temperature (Celsius)", fontweight = 'bold', fontsize = 14)
-plt.savefig("lineplot.png", dpi = 600)
+plt.legend()
+plt.savefig("1_lineplot.png", dpi = 600)
 
-# plot 2
+# task 1 bar chart
+plt.figure()
+plt.bar(x_timepoints, y_temp, yerr = std_dev1, capsize = 5, label = "Temperature (Celsius)")
+plt.xlabel("Time (Minutes)", fontweight = 'bold', fontsize = 14)
+plt.ylabel("Temperature (Celsius)", fontweight = 'bold', fontsize = 14)
+plt.legend()
+plt.savefig("1_barchart.png", dpi = 600)
+
+# task 2 line chart
 plt.figure()
 cities = ["Las Vegas", "Durango", "Denver"]
 x_timepoints2 = df2.iloc[:,0 ]
@@ -46,6 +55,17 @@ del DEN_temps[0]
 DEN_DV = list(df2.iloc[:, 6])
 del DEN_DV[0]
 
+plt.errorbar(x_timepoints2, LV_temps, yerr = LV_DV, capsize = 5, label = 'Las Vegas Temperature')
+plt.errorbar(x_timepoints2, DUR_temps, yerr = DUR_DV, capsize = 5, label = 'Durango Temperature')
+plt.errorbar(x_timepoints2, DEN_temps, yerr = DEN_DV, capsize = 5, label = 'Denver Temperature')
+plt.xlabel("Time (Hours)", fontweight = 'bold', fontsize = 14)
+plt.ylabel("Temperature (Celsius)", fontweight = 'bold', fontsize = 14)
+plt.legend()
+plt.savefig("2_lineplot.png", dpi = 600)
+
+
+# task 2 bar chart
+plt.figure()
 import numpy as np
 
 barWidth = 0.25
